@@ -4,6 +4,6 @@
 #cd ../
 chmod +x autogen.sh
 ./autogen.sh
-./configure --disable-tests #--enable-cxx --disable-shared --prefix=`pwd`/depends/x86_64-pc-linux-gnu
+./configure --disable-tests --with-incompatible-bdb --with-unsupported-ssl #--enable-cxx --disable-shared --prefix=`pwd`/depends/x86_64-pc-linux-gnu
 make
 make install

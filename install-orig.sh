@@ -95,13 +95,13 @@ function check_distro() {
     # currently only for Ubuntu 16.04 & 18.04
     if [[ -r /etc/os-release ]]; then
         . /etc/os-release
-        if [[ "${VERSION_ID}" != "16.04" ]] && [[ "${VERSION_ID}" != "18.04" ]] && [[ "${VERSION_ID}" != "20.04" ]] ; then
-            echo "This script only supports Ubuntu 16.04 & 18.04 & 20.04 LTS, exiting."
+        if [[ "${VERSION_ID}" != "16.04" ]] && [[ "${VERSION_ID}" != "18.04" ]] ; then
+            echo "This script only supports Ubuntu 16.04 & 18.04 LTS, exiting."
             exit 1
         fi
     else
         # no, thats not ok!
-        echo "This script only supports Ubuntu 16.04 & 18.04 & 20.04 LTS, exiting."
+        echo "This script only supports Ubuntu 16.04 & 18.04 LTS, exiting."
         exit 1
     fi
 }
@@ -120,17 +120,13 @@ function install_packages() {
     libcurl4-gnutls-dev protobuf-compiler libboost-all-dev autotools-dev automake \
     libboost-all-dev libssl-dev make autoconf libtool git apt-utils g++ \
     libprotobuf-dev pkg-config libudev-dev libqrencode-dev bsdmainutils \
-    pkg-config libgmp3-dev libevent-dev jp2a pv virtualenv &>> ${SCRIPT_LOGFILE}
+    pkg-config libgmp3-dev libevent-dev jp2a pv virtualenv libdb4.8-dev libdb4.8++-dev  &>> ${SCRIPT_LOGFILE}
     
     # only for 18.04 // openssl
     if [[ "${VERSION_ID}" == "18.04" ]] ; then
-       apt-get -qqy -o=Dpkg::Use-Pty=0 -o=Acquire::ForceIPv4=true install libssl1.0-dev &>> ${SCRIPT_LOGFILE}
+       apt-get -qqy -o=Dpkg::Use-Pty=0 -o=Acquire::ForceIPv4=true install libssl1.0-dev
     fi    
     
-    # only for 20.04 // openssl
-    if [[ "${VERSION_ID}" == "20.04" ]] ; then
-       apt-get -qqy -o=Dpkg::Use-Pty=0 -o=Acquire::ForceIPv4=true install libtool autoconf pkg-config libdb++-dev libboost-all-dev libssl-dev libgmp-dev &>> ${SCRIPT_LOGFILE}
-    fi    
 }
 
 #
@@ -667,8 +663,7 @@ function prepare_mn_interfaces() {
     # check for the default interface status
     if [ ! -f /sys/class/net/${ETH_INTERFACE}/operstate ]; then
         echo "Default interface doesn't exist, switching to eth0"
-	ETH_INTERFACE=`ifconfig -a|grep UP|grep -v "^lo"|cut -f1 -d':'|head -1`
-        export ETH_INTERFACE
+        export ETH_INTERFACE="eth0"
     fi
 
     # check for the nuse case <3
@@ -748,7 +743,7 @@ function prepare_mn_interfaces() {
 
 # Declare vars. Flags initalizing to 0.
 wipe=0;
-debug=1;
+debug=0;
 update=0;
 sentinel=0;
 startnodes=0;
