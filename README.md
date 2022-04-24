@@ -146,18 +146,22 @@ The management script release will follow within the next couple of days.
 | nodemaster status bltg (all\|number)  | systemd process status for a bltg masternode |
 | nodemaster tail bltg (all\|number)    | tail debug logs for a bltg masternode        |
 
-On UBUNTU 20.04 and above there is no rc.local and this may cause problems
+
+
+##On UBUNTU 20.04 and above there is no rc.local and this may cause problems
 this can be added by following the steps below.
 
-# Procedure to setup /etc/rc.local with systemd on Ubuntu 20.04
+ Procedure to setup /etc/rc.local with systemd on Ubuntu 20.04
+ 
  Check the current status of rc-local service
 
 ```
 sudo systemctl status rc-local
 ```
 
-## Enable rc.local service
-# Enable /etc/rc.local to run on system boot using the command
+# Enable rc.local service
+
+ Enable /etc/rc.local to run on system boot using the command
 
 ```
 sudo systemctl enable rc-local
@@ -192,9 +196,9 @@ sudo nano /etc/systemd/system/rc-local.service
  WantedBy=multi-user.target
  ```
 
-## Create and Edit rc.local file
+# Create and Edit rc.local file
 
-# Now we will need to edit the /etc/rc.local file. Issue the following command and press Enter
+ Now we will need to edit the /etc/rc.local file. Issue the following command and press Enter
 
 ```
 sudo nano /etc/rc.local
