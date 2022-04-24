@@ -168,11 +168,11 @@ sudo systemctl status rc-local
 sudo systemctl enable rc-local
 ```
 
-# As you may have already read, it is not possible to enable rc.local at startup using SystemD on Ubuntu 20.04. Therefore we have to do this another way.
+As you may have already read, it is not possible to enable rc.local at startup using SystemD on Ubuntu 20.04. Therefore we have to do this another way.
 
  Manually create a systemd service
 
-# We will need to manually create a SystemD service which will start at system boot.
+We will need to manually create a SystemD service which will start at system boot.
 
 ```
 sudo nano /etc/systemd/system/rc-local.service
@@ -197,7 +197,7 @@ sudo nano /etc/systemd/system/rc-local.service
  WantedBy=multi-user.target
  ```
 
-# Create and Edit rc.local file
+Create and Edit rc.local file
 
  Now we will need to edit the /etc/rc.local file. Issue the following command and press Enter
 
