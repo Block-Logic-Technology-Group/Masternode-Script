@@ -672,7 +672,13 @@ function prepare_mn_interfaces() {
 		> /etc/rc.local
 		systemctl enable rc-local
 	fi
-	ETH_INTERFACE=`ifconfig -a|grep UP|grep -v "^lo"|cut -f1 -d':'|head -1`
+       if [ ! -f /etc/rc.local ]
+       then
+          > /etc/rc.local
+          systemctl enable rc-local
+       fi
+
+	ETH_INTERFACE=`ip link show |grep UP|grep -v "lo:"|cut -f2 -d':'|head -1|sed "s/ //g"`
         export ETH_INTERFACE
     fi
 
