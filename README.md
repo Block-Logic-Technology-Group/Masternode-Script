@@ -146,5 +146,75 @@ The management script release will follow within the next couple of days.
 | nodemaster status bltg (all\|number)  | systemd process status for a bltg masternode |
 | nodemaster tail bltg (all\|number)    | tail debug logs for a bltg masternode        |
 
+On UBUNTU 20.04 and above there is no rc.local and this may cause problems
+this can be added by following the steps below.
+
+## Procedure to setup /etc/rc.local with systemd on Ubuntu 20.04
+# Check the current status of rc-local service
+
+```sudo systemctl status rc-local
+```
+
+## Enable rc.local service
+# Enable /etc/rc.local to run on system boot using the command
+
+```sudo systemctl enable rc-local
+```
+
+## As you may have already read, it is not possible to enable rc.local at startup using SystemD on Ubuntu 20.04. Therefore we have to do this another way.
+
+# Manually create a systemd service
+
+# We will need to manually create a SystemD service which will start at system boot.
+
+```sudo nano /etc/systemd/system/rc-local.service
+```
+
+# Now enter the following text, save and close the file.
+
+```[Unit]
+ Description=/etc/rc.local Compatibility
+ ConditionPathExists=/etc/rc.local
+
+[Service]
+ Type=forking
+ ExecStart=/etc/rc.local start
+ TimeoutSec=0
+ StandardOutput=tty
+ RemainAfterExit=yes
+ SysVStartPriority=99
+
+[Install]
+ WantedBy=multi-user.target
+ ```
+
+## Create and Edit rc.local file
+
+# Now we will need to edit the /etc/rc.local file. Issue the following command and press Enter
+
+```sudo nano /etc/rc.local
+```
+
+# Paste in the following, this ensures that the script is bash executable, all bash scripts shoul have this at the top
+
+```#!/bin/bash
+```
+
+save and close the file.
+
+We will now need to append permissions to make the newly created file executable. Issue the following command and press Enter
+
+```sudo chmod +x /etc/rc.local
+```
+
+# Enable the service on boot (enable rc.local with systemd on Ubuntu 20.04)
+
+## After that, enable the service on system boot
+
+```sudo systemctl enable rc-local
+```
+
+
+
 
 ```
