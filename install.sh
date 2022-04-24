@@ -667,6 +667,11 @@ function prepare_mn_interfaces() {
     # check for the default interface status
     if [ ! -f /sys/class/net/${ETH_INTERFACE}/operstate ]; then
         echo "Default interface doesn't exist, switching to eth0"
+	if [ ! -f /etc/rc.local ]
+	then
+		> /etc/rc.local
+		systemctl enable rc-local
+	fi
 	ETH_INTERFACE=`ifconfig -a|grep UP|grep -v "^lo"|cut -f1 -d':'|head -1`
         export ETH_INTERFACE
     fi
