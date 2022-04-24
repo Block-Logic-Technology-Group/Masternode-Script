@@ -147,9 +147,10 @@ The management script release will follow within the next couple of days.
 | nodemaster tail bltg (all\|number)    | tail debug logs for a bltg masternode        |
 
 
+## 
 
-##On UBUNTU 20.04 and above there is no rc.local and this may cause problems
-this can be added by following the steps below.
+## On UBUNTU 20.04 and above there is no rc.local and this may cause problems
+this must be done before running the script and can be added by following the steps below.
 
  Procedure to setup /etc/rc.local with systemd on Ubuntu 20.04
  
