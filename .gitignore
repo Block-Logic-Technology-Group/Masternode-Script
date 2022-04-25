@@ -2,4 +2,8 @@
 *.DS_Store*
 assets/collage.jpeg
 /.vs
+<<<<<<< HEAD
+.install.sh.swp
+=======
 /code
+>>>>>>> 845e3c62f5f77c1c9f8b25156e814484ec0c4578
